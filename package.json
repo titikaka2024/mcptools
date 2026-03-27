@@ -1,5 +1,5 @@
 {
-  "name": "mcptools",
+  "name": "@titikaka2026/mcptools",
   "version": "0.1.0",
   "description": "The Swiss Army knife for MCP (Model Context Protocol) — create, test, inspect, and wrap MCP servers with ease.",
   "keywords": [
@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/titikaka2024/mcptools"
+    "url": "git+https://github.com/titikaka2024/mcptools.git"
   },
   "homepage": "https://github.com/titikaka2024/mcptools",
   "bugs": {
@@ -25,7 +25,7 @@
   },
   "type": "module",
   "bin": {
-    "mcptools": "./dist/cli.js"
+    "mcptools": "dist/cli.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
