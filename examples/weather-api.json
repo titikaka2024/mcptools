@@ -1,0 +1,81 @@
+{
+  "name": "weather-api",
+  "baseUrl": "https://api.weatherapi.com/v1",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/current.json",
+      "name": "get_current",
+      "description": "Get current weather conditions for a location",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "API key for authentication",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "description": "Location query: city name, zip code, IP address, or lat,lon coordinates",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "aqi",
+          "type": "string",
+          "description": "Include air quality data: yes or no",
+          "required": false,
+          "in": "query"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/forecast.json",
+      "name": "get_forecast",
+      "description": "Get weather forecast for a location for up to 14 days",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "API key for authentication",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "q",
+          "type": "string",
+          "description": "Location query: city name, zip code, IP address, or lat,lon coordinates",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "days",
+          "type": "number",
+          "description": "Number of days of forecast (1-14)",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "aqi",
+          "type": "string",
+          "description": "Include air quality data: yes or no",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "alerts",
+          "type": "string",
+          "description": "Include weather alerts: yes or no",
+          "required": false,
+          "in": "query"
+        }
+      ]
+    }
+  ]
+}

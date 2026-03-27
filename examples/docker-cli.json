@@ -1,0 +1,85 @@
+{
+  "name": "docker-cli",
+  "command": "docker",
+  "description": "Docker container management as an MCP server",
+  "subcommands": [
+    {
+      "name": "ps",
+      "description": "List running containers",
+      "args": [
+        {
+          "name": "--all",
+          "type": "boolean",
+          "description": "Show all containers (default shows just running)",
+          "required": false
+        },
+        {
+          "name": "--format",
+          "type": "string",
+          "description": "Format output using a Go template or 'json' for JSON output",
+          "required": false
+        },
+        {
+          "name": "--filter",
+          "type": "string",
+          "description": "Filter output based on conditions (e.g., status=running, name=my-container)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "description": "List locally available Docker images",
+      "args": [
+        {
+          "name": "--all",
+          "type": "boolean",
+          "description": "Show all images (default hides intermediate images)",
+          "required": false
+        },
+        {
+          "name": "--format",
+          "type": "string",
+          "description": "Format output using a Go template or 'json' for JSON output",
+          "required": false
+        },
+        {
+          "name": "--filter",
+          "type": "string",
+          "description": "Filter output based on conditions (e.g., dangling=true, reference=alpine)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "logs",
+      "description": "Fetch the logs of a container",
+      "args": [
+        {
+          "name": "container",
+          "type": "string",
+          "description": "Container name or ID to fetch logs from",
+          "required": true
+        },
+        {
+          "name": "--tail",
+          "type": "string",
+          "description": "Number of lines to show from the end of the logs (e.g., 100)",
+          "required": false
+        },
+        {
+          "name": "--since",
+          "type": "string",
+          "description": "Show logs since timestamp or relative time (e.g., 2024-01-01, 1h)",
+          "required": false
+        },
+        {
+          "name": "--timestamps",
+          "type": "boolean",
+          "description": "Show timestamps with each log line",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "name": "github-api",
+  "baseUrl": "https://api.github.com",
+  "headers": {
+    "Accept": "application/vnd.github.v3+json",
+    "User-Agent": "mcptools-github-wrapper"
+  },
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}",
+      "name": "get_repo",
+      "description": "Get detailed information about a GitHub repository",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "string",
+          "description": "Repository owner (user or organization)",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "repo",
+          "type": "string",
+          "description": "Repository name",
+          "required": true,
+          "in": "path"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/issues",
+      "name": "list_issues",
+      "description": "List issues for a GitHub repository",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "string",
+          "description": "Repository owner (user or organization)",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "repo",
+          "type": "string",
+          "description": "Repository name",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "Filter by state: open, closed, or all",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "labels",
+          "type": "string",
+          "description": "Comma-separated list of label names to filter by",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "per_page",
+          "type": "number",
+          "description": "Number of results per page (max 100)",
+          "required": false,
+          "in": "query"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/repos/{owner}/{repo}/pulls",
+      "name": "list_pulls",
+      "description": "List pull requests for a GitHub repository",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "string",
+          "description": "Repository owner (user or organization)",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "repo",
+          "type": "string",
+          "description": "Repository name",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "Filter by state: open, closed, or all",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "description": "Sort by: created, updated, popularity, long-running",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "description": "Sort direction: asc or desc",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "per_page",
+          "type": "number",
+          "description": "Number of results per page (max 100)",
+          "required": false,
+          "in": "query"
+        }
+      ]
+    }
+  ]
+}
