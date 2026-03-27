@@ -1,10 +1,22 @@
+<div align="center">
+
 # mcptools
 
-> The Swiss Army knife for [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) — create, test, inspect, and wrap MCP servers with ease.
+### The Swiss Army knife for MCP (Model Context Protocol)
 
-[![npm version](https://img.shields.io/npm/v/mcptools.svg)](https://www.npmjs.com/package/mcptools)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
+Create, test, inspect, and wrap MCP servers with ease.
+
+[![npm version](https://img.shields.io/npm/v/mcptools.svg?style=flat-square)](https://www.npmjs.com/package/mcptools)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg?style=flat-square)](https://nodejs.org)
+[![GitHub stars](https://img.shields.io/github/stars/titikaka2024/mcptools?style=flat-square)](https://github.com/titikaka2024/mcptools/stargazers)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/titikaka2024/mcptools/pulls)
+
+[Getting Started](#quick-start) | [Commands](#commands) | [API](#programmatic-api) | [Examples](#examples) | [Contributing](#contributing)
+
+</div>
+
+---
 
 MCP is the open protocol that lets AI assistants (Claude, GPT, etc.) call external tools, read data, and interact with the world. **mcptools** makes building and debugging MCP servers fast and painless.
 
@@ -273,27 +285,43 @@ After building your MCP server, add it to Claude Desktop's config:
 }
 ```
 
+## Why mcptools vs. building from scratch?
+
+| Feature | From Scratch | mcptools |
+|---------|:---:|:---:|
+| Project scaffolding | Manual setup | `mcptools create` in 5 seconds |
+| Protocol compliance | Read the spec yourself | Built-in validator |
+| Testing | `echo '{}' \| node server.js` | `mcptools test --validate` |
+| Debugging | `console.log` everywhere | `mcptools inspect` with live view |
+| Wrap existing APIs | Write hundreds of lines | One JSON config file |
+| TypeScript + Python | DIY | Templates for both |
+
+## Roadmap
+
+- [ ] SSE transport support
+- [ ] OpenAPI → MCP auto-conversion (import Swagger/OpenAPI specs directly)
+- [ ] MCP server registry (discover and install community servers)
+- [ ] Visual inspector (web-based MCP debugger UI)
+- [ ] `mcptools bench` — performance benchmarking for MCP servers
+- [ ] Plugin system for custom templates
+
 ## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ```bash
-# Clone the repo
 git clone https://github.com/titikaka2024/mcptools.git
 cd mcptools
-
-# Install dependencies
 npm install
-
-# Build
 npm run build
-
-# Run tests
 npm test
-
-# Run in dev mode
-npm run dev
 ```
+
+## Star History
+
+If you find this useful, please star the repo — it helps others discover mcptools!
+
+[![Star History Chart](https://api.star-history.com/svg?repos=titikaka2024/mcptools&type=Date)](https://star-history.com/#titikaka2024/mcptools&Date)
 
 ## License
 
