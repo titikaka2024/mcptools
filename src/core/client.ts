@@ -13,7 +13,11 @@ export class McpClient {
   private requestId = 0;
   private pending = new Map<
     number,
-    { resolve: (v: McpResponse) => void; reject: (e: Error) => void }
+    {
+      resolve: (v: McpResponse) => void;
+      reject: (e: Error) => void;
+      timeout: NodeJS.Timeout;
+    }
   >();
   private buffer = "";
 
@@ -37,6 +41,7 @@ export class McpClient {
 
     this.process.on("error", (err) => {
       for (const [, handler] of this.pending) {
+        clearTimeout(handler.timeout);
         handler.reject(err);
       }
       this.pending.clear();
@@ -44,6 +49,7 @@ export class McpClient {
 
     this.process.on("close", () => {
       for (const [, handler] of this.pending) {
+        clearTimeout(handler.timeout);
         handler.reject(new Error("MCP server process exited"));
       }
       this.pending.clear();
@@ -130,23 +136,24 @@ export class McpClient {
     };
 
     return new Promise((resolve, reject) => {
-      this.pending.set(id, { resolve, reject });
-
-      const data = JSON.stringify(request) + "\n";
-      this.process?.stdin?.write(data, (err) => {
-        if (err) {
-          this.pending.delete(id);
-          reject(err);
-        }
-      });
-
-      // Timeout after 30 seconds
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         if (this.pending.has(id)) {
           this.pending.delete(id);
           reject(new Error(`Request ${method} timed out after 30s`));
         }
       }, 30000);
+      timeout.unref();
+
+      this.pending.set(id, { resolve, reject, timeout });
+
+      const data = JSON.stringify(request) + "\n";
+      this.process?.stdin?.write(data, (err) => {
+        if (err) {
+          this.pending.delete(id);
+          clearTimeout(timeout);
+          reject(err);
+        }
+      });
     });
   }
 
@@ -176,6 +183,7 @@ export class McpClient {
           const handler = this.pending.get(Number(message.id));
           if (handler) {
             this.pending.delete(Number(message.id));
+            clearTimeout(handler.timeout);
             handler.resolve(message);
           }
         }

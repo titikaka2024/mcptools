@@ -141,17 +141,19 @@ function generateCliToolDefinition(sub: CliSubcommand): string {
 function generateCliToolHandler(sub: CliSubcommand, command: string): string {
   const argMapping = sub.args
     .map((arg) => {
+      const argName = JSON.stringify(arg.name);
+      const flagName = JSON.stringify(`--${arg.name}`);
       if (arg.type === "boolean") {
-        return `      if (args.${arg.name}) cmdArgs.push("--${arg.name}");`;
+        return `      if (args[${argName}]) cmdArgs.push(${flagName});`;
       }
-      return `      if (args.${arg.name} !== undefined) cmdArgs.push("--${arg.name}", String(args.${arg.name}));`;
+      return `      if (args[${argName}] !== undefined) cmdArgs.push(${flagName}, String(args[${argName}]));`;
     })
     .join("\n");
 
-  return `    case "${sub.name}": {
-      const cmdArgs = ["${sub.name}"];
+  return `    case ${JSON.stringify(sub.name)}: {
+      const cmdArgs = [${JSON.stringify(sub.name)}];
 ${argMapping}
-      const { stdout, stderr } = await execFileAsync("${command}", cmdArgs);
+      const { stdout, stderr } = await execFileAsync(${JSON.stringify(command)}, cmdArgs);
       return stdout + (stderr ? "\\nSTDERR:\\n" + stderr : "");
     }`;
 }

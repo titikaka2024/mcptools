@@ -36,10 +36,10 @@ export const createCommand = new Command("create")
       if (options.language === "typescript") {
         console.log("  npm install");
         console.log("  npm run build");
-        console.log(`  mcptools test --command "node dist/index.js"`);
+        console.log("  mcptools test --command node --args dist/index.js");
       } else {
         console.log("  pip install -r requirements.txt");
-        console.log(`  mcptools test --command "python server.py"`);
+        console.log("  mcptools test --command python --args server.py");
       }
     } catch (err) {
       spinner.fail(
@@ -130,7 +130,7 @@ npm run build
 ## Test
 
 \`\`\`bash
-mcptools test --command "node dist/index.js"
+mcptools test --command node --args dist/index.js
 \`\`\`
 
 ## Usage
@@ -280,7 +280,7 @@ pip install -r requirements.txt
 ## Test
 
 \`\`\`bash
-mcptools test --command "python server.py"
+mcptools test --command python --args server.py
 \`\`\`
 `
   );

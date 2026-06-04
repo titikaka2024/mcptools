@@ -21,8 +21,8 @@ npm run dev
 # Run tests
 npm test
 
-# Lint
-npm run lint
+# Check the release baseline
+npm run check
 ```
 
 ## Submitting Changes
@@ -30,8 +30,10 @@ npm run lint
 1. Make your changes in a feature branch
 2. Add tests for new functionality
 3. Ensure all tests pass: `npm test`
-4. Commit with a clear message
-5. Push to your fork and create a Pull Request
+4. Run `npm run check`
+5. If the change affects generated wrappers, review [SECURITY.md](SECURITY.md)
+6. Commit with a clear message
+7. Push to your fork and create a Pull Request
 
 ## Code Style
 
@@ -46,6 +48,7 @@ npm run lint
 - Include your Node.js version and OS
 - Provide steps to reproduce the issue
 - Include error messages and logs
+- If the issue involves generated wrapper security, avoid posting secrets, tokens, private API responses, or internal command output
 
 ## Adding a New Command
 
@@ -54,6 +57,14 @@ npm run lint
 3. Register it in `src/cli.ts`
 4. Add tests in `src/__tests__/`
 5. Update the README
+
+## Maintainer checklist
+
+Before cutting a release, maintainers should follow [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md). At minimum, verify:
+
+- `npm run check`
+- README command examples match the current package name
+- generated REST and CLI wrappers still avoid shell interpolation and unsafe argument handling
 
 ## License
 

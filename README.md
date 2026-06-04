@@ -6,7 +6,7 @@
 
 Create, test, inspect, and wrap MCP servers with ease.
 
-[![npm version](https://img.shields.io/npm/v/mcptools.svg?style=flat-square)](https://www.npmjs.com/package/mcptools)
+[![npm version](https://img.shields.io/npm/v/%40titikaka2026%2Fmcptools.svg?style=flat-square)](https://www.npmjs.com/package/@titikaka2026/mcptools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg?style=flat-square)](https://nodejs.org)
 [![GitHub stars](https://img.shields.io/github/stars/titikaka2024/mcptools?style=flat-square)](https://github.com/titikaka2024/mcptools/stargazers)
@@ -19,6 +19,15 @@ Create, test, inspect, and wrap MCP servers with ease.
 ---
 
 MCP is the open protocol that lets AI assistants (Claude, GPT, etc.) call external tools, read data, and interact with the world. **mcptools** makes building and debugging MCP servers fast and painless.
+
+## Project status
+
+mcptools is an early-stage, actively maintained toolkit for MCP server authors. The current focus is reliability over feature count:
+
+- reproducible TypeScript builds and Vitest coverage for wrapper generation and validation
+- safe-by-default REST and CLI wrapper generation using `fetch` and `execFile`
+- documented security expectations for generated wrappers in [SECURITY.md](SECURITY.md)
+- release hygiene tracked in [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)
 
 ## Why mcptools?
 
@@ -34,7 +43,7 @@ Building MCP servers today means writing boilerplate JSON-RPC handling, manually
 
 ```bash
 # Install globally
-npm install -g mcptools
+npm install -g @titikaka2026/mcptools
 
 # Create a new MCP server
 mcptools create my-server
@@ -42,19 +51,19 @@ mcptools create my-server
 # Build and test it
 cd my-server
 npm install && npm run build
-mcptools test --command "node dist/index.js"
+mcptools test --command node --args dist/index.js
 ```
 
 ## Installation
 
 ```bash
-npm install -g mcptools
+npm install -g @titikaka2026/mcptools
 ```
 
 Or use with npx:
 
 ```bash
-npx mcptools create my-server
+npx @titikaka2026/mcptools create my-server
 ```
 
 ## Commands
@@ -90,13 +99,13 @@ Connect to an MCP server and verify it responds correctly.
 
 ```bash
 # Test a local server
-mcptools test --command "node dist/index.js"
+mcptools test --command node --args dist/index.js
 
 # Test with validation
-mcptools test --command "node dist/index.js" --validate
+mcptools test --command node --args dist/index.js --validate
 
 # Output as JSON (for CI/CD)
-mcptools test --command "node dist/index.js" --json
+mcptools test --command node --args dist/index.js --json
 ```
 
 **Output includes:**
@@ -111,10 +120,10 @@ Debug MCP communication by watching all JSON-RPC messages flowing between client
 
 ```bash
 # Inspect server communication
-mcptools inspect --command "node dist/index.js"
+mcptools inspect --command node --args dist/index.js
 
 # Show raw JSON messages
-mcptools inspect --command "node dist/index.js" --raw
+mcptools inspect --command node --args dist/index.js --raw
 ```
 
 **Output shows:**
@@ -192,7 +201,7 @@ mcptools wrap cli --config cli.json --output ./generated
 Use mcptools as a library in your own projects:
 
 ```typescript
-import { McpClient, McpValidator } from "mcptools";
+import { McpClient, McpValidator } from "@titikaka2026/mcptools";
 
 // Connect to an MCP server
 const client = new McpClient({
@@ -227,7 +236,7 @@ await client.disconnect();
 mcptools create hello-world
 cd hello-world
 npm install && npm run build
-mcptools test --command "node dist/index.js"
+mcptools test --command node --args dist/index.js
 ```
 
 ### Wrap the GitHub API
@@ -264,7 +273,7 @@ mcptools test --command "node dist/index.js"
 
 ```bash
 mcptools wrap rest --config github-api.json
-mcptools test --command "node github-mcp-mcp-server.mjs"
+mcptools test --command node --args github-mcp-mcp-server.mjs
 ```
 
 ### Use with Claude Desktop
@@ -296,8 +305,20 @@ After building your MCP server, add it to Claude Desktop's config:
 | Wrap existing APIs | Write hundreds of lines | One JSON config file |
 | TypeScript + Python | DIY | Templates for both |
 
+## Security model for generated wrappers
+
+Generated MCP wrappers can bridge AI assistants to external APIs and local commands. mcptools therefore keeps the generated code explicit and reviewable:
+
+- REST wrappers use `fetch`, encode path/query parameters, and validate required arguments before calling endpoints.
+- CLI wrappers use `execFile` with an argument array instead of shell string execution.
+- Generated code should be reviewed before connecting it to private APIs, credentials, destructive commands, or production environments.
+
+See [SECURITY.md](SECURITY.md) for the maintainer policy, reporting process, and wrapper hardening checklist.
+
 ## Roadmap
 
+- [x] CI for build and test on Node 20
+- [x] Security guidance for REST and CLI wrappers
 - [ ] SSE transport support
 - [ ] OpenAPI → MCP auto-conversion (import Swagger/OpenAPI specs directly)
 - [ ] MCP server registry (discover and install community servers)

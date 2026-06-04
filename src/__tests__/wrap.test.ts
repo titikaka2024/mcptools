@@ -33,6 +33,8 @@ describe("wrapRestApi", () => {
     expect(result).toContain("tools/list");
     expect(result).toContain("tools/call");
     expect(result).toContain("initialize");
+    expect(result).toContain("async function callTool");
+    expect(result).toContain('case "get_user": return call_0_get_user(args);');
   });
 
   it("handles endpoints with query parameters", () => {
@@ -97,6 +99,45 @@ describe("wrapRestApi", () => {
     expect(result).toContain("POST");
     expect(result).toContain("create_user");
     expect(result).toContain("JSON.stringify");
+    expect(result).toContain('"name": args["name"]');
+    expect(result).not.toContain("JSON.stringify({ name })");
+  });
+
+  it("generates safe handler names and argument access", () => {
+    const result = wrapRestApi({
+      name: "safe-api",
+      baseUrl: "https://api.example.com",
+      endpoints: [
+        {
+          method: "GET",
+          path: "/repos/{owner-name}",
+          name: "repo/search-v1",
+          description: "Search repository data",
+          parameters: [
+            {
+              name: "owner-name",
+              type: "string",
+              description: "Repository owner",
+              required: true,
+              in: "path",
+            },
+            {
+              name: "dry-run",
+              type: "boolean",
+              description: "Run without changes",
+              required: false,
+              in: "query",
+            },
+          ],
+        },
+      ],
+      outputDir: ".",
+    });
+
+    expect(result).toContain("async function call_0_repo_search_v1");
+    expect(result).toContain('args["owner-name"]');
+    expect(result).toContain('args["dry-run"]');
+    expect(result).toContain('case "repo/search-v1": return call_0_repo_search_v1(args);');
   });
 });
 
@@ -154,5 +195,34 @@ describe("wrapCli", () => {
 
     expect(result).toContain("verbose");
     expect(result).toContain('cmdArgs.push("--verbose")');
+    expect(result).toContain('args["verbose"]');
+  });
+
+  it("escapes CLI commands, subcommands, and argument names", () => {
+    const result = wrapCli({
+      name: "safe-cli",
+      command: "my-tool",
+      description: "Test special names",
+      subcommands: [
+        {
+          name: "dry-run",
+          description: "Dry run",
+          args: [
+            {
+              name: "output-format",
+              type: "string",
+              description: "Output format",
+              required: false,
+            },
+          ],
+        },
+      ],
+      outputDir: ".",
+    });
+
+    expect(result).toContain('case "dry-run"');
+    expect(result).toContain('const cmdArgs = ["dry-run"];');
+    expect(result).toContain('args["output-format"]');
+    expect(result).toContain('execFileAsync("my-tool", cmdArgs)');
   });
 });

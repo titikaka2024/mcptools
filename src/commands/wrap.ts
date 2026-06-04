@@ -3,7 +3,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
 import ora from "ora";
-import { wrapRestApi, generateToolRouter } from "../core/wrap-rest.js";
+import { wrapRestApi } from "../core/wrap-rest.js";
 import { wrapCli } from "../core/wrap-cli.js";
 
 export const wrapCommand = new Command("wrap")
@@ -36,13 +36,10 @@ function wrapRestCommand(): Command {
           outputDir: options.output,
         });
 
-        const routerCode = generateToolRouter(endpoints);
-        const fullCode = serverCode + "\n" + routerCode;
-
         const outputDir = options.output;
         await mkdir(outputDir, { recursive: true });
         const outputFile = join(outputDir, `${name}-mcp-server.mjs`);
-        await writeFile(outputFile, fullCode);
+        await writeFile(outputFile, serverCode);
 
         spinner.succeed(chalk.green(`Generated MCP server: ${outputFile}`));
 
@@ -51,7 +48,7 @@ function wrapRestCommand(): Command {
         console.log(`  node ${outputFile}`);
         console.log();
         console.log(chalk.bold("Test:"));
-        console.log(`  mcptools test --command "node ${outputFile}"`);
+        console.log(`  mcptools test --command node --args ${outputFile}`);
       } catch (err) {
         spinner.fail(chalk.red(`Failed: ${(err as Error).message}`));
         process.exit(1);
@@ -97,7 +94,7 @@ function wrapCliCommand(): Command {
         console.log(`  node ${outputFile}`);
         console.log();
         console.log(chalk.bold("Test:"));
-        console.log(`  mcptools test --command "node ${outputFile}"`);
+        console.log(`  mcptools test --command node --args ${outputFile}`);
 
         console.log();
         console.log(chalk.bold("Example config format:"));

@@ -31,16 +31,19 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "templates"
+    "docs",
+    "examples",
+    "SECURITY.md"
   ],
   "scripts": {
     "build": "tsc",
+    "check": "npm run build && npm test && npm run audit:runtime",
     "dev": "tsc --watch",
     "start": "node dist/cli.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src/",
-    "prepublishOnly": "npm run build"
+    "audit:runtime": "npm audit --omit=dev",
+    "prepublishOnly": "npm run check"
   },
   "dependencies": {
     "chalk": "^5.3.0",
@@ -54,7 +57,7 @@
     "@types/node": "^22.0.0",
     "@types/ws": "^8.5.12",
     "typescript": "^5.6.0",
-    "vitest": "^2.1.0"
+    "vitest": "^4.1.8"
   },
   "engines": {
     "node": ">=18.0.0"
