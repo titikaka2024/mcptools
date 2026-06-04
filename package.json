@@ -1,6 +1,6 @@
 {
   "name": "@titikaka2026/mcptools",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The Swiss Army knife for MCP (Model Context Protocol) — create, test, inspect, and wrap MCP servers with ease.",
   "keywords": [
     "mcp",
@@ -33,6 +33,7 @@
     "dist",
     "docs",
     "examples",
+    "CHANGELOG.md",
     "SECURITY.md"
   ],
   "scripts": {
