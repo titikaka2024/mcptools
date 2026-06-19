@@ -7,6 +7,7 @@ import type {
   McpPrompt,
   McpServerConfig,
 } from "../types.js";
+import { MCP_PROTOCOL_VERSION, PACKAGE_VERSION } from "../version.js";
 
 export class McpClient {
   private process: ChildProcess | null = null;
@@ -57,9 +58,9 @@ export class McpClient {
 
     // Initialize the connection
     await this.send("initialize", {
-      protocolVersion: "2024-11-05",
+      protocolVersion: MCP_PROTOCOL_VERSION,
       capabilities: {},
-      clientInfo: { name: "mcptools", version: "0.1.0" },
+      clientInfo: { name: "mcptools", version: PACKAGE_VERSION },
     });
 
     // Send initialized notification

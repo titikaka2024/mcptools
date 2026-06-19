@@ -8,19 +8,19 @@
       "description": "List running containers",
       "args": [
         {
-          "name": "--all",
+          "name": "all",
           "type": "boolean",
           "description": "Show all containers (default shows just running)",
           "required": false
         },
         {
-          "name": "--format",
+          "name": "format",
           "type": "string",
           "description": "Format output using a Go template or 'json' for JSON output",
           "required": false
         },
         {
-          "name": "--filter",
+          "name": "filter",
           "type": "string",
           "description": "Filter output based on conditions (e.g., status=running, name=my-container)",
           "required": false
@@ -32,19 +32,19 @@
       "description": "List locally available Docker images",
       "args": [
         {
-          "name": "--all",
+          "name": "all",
           "type": "boolean",
           "description": "Show all images (default hides intermediate images)",
           "required": false
         },
         {
-          "name": "--format",
+          "name": "format",
           "type": "string",
           "description": "Format output using a Go template or 'json' for JSON output",
           "required": false
         },
         {
-          "name": "--filter",
+          "name": "filter",
           "type": "string",
           "description": "Filter output based on conditions (e.g., dangling=true, reference=alpine)",
           "required": false
@@ -62,19 +62,19 @@
           "required": true
         },
         {
-          "name": "--tail",
+          "name": "tail",
           "type": "string",
           "description": "Number of lines to show from the end of the logs (e.g., 100)",
           "required": false
         },
         {
-          "name": "--since",
+          "name": "since",
           "type": "string",
           "description": "Show logs since timestamp or relative time (e.g., 2024-01-01, 1h)",
           "required": false
         },
         {
-          "name": "--timestamps",
+          "name": "timestamps",
           "type": "boolean",
           "description": "Show timestamps with each log line",
           "required": false

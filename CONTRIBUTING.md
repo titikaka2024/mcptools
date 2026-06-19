@@ -6,7 +6,7 @@ Thanks for your interest in contributing! Here's how you can help.
 
 1. Fork the repository
 2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/mcptools.git`
-3. Install dependencies: `npm install`
+3. Install dependencies: `npm ci`
 4. Create a branch: `git checkout -b my-feature`
 
 ## Development
@@ -24,6 +24,8 @@ npm test
 # Check the release baseline
 npm run check
 ```
+
+Use `npm ci` again whenever you want a lockfile-faithful reinstall before validation.
 
 ## Submitting Changes
 
@@ -49,6 +51,13 @@ npm run check
 - Provide steps to reproduce the issue
 - Include error messages and logs
 - If the issue involves generated wrapper security, avoid posting secrets, tokens, private API responses, or internal command output
+
+## Issue Triage
+
+- Check [docs/ROADMAP.md](docs/ROADMAP.md) before opening a large feature request to see current priorities.
+- Security-sensitive wrapper bugs and reproducible regressions take priority over new commands.
+- Feature requests should explain the maintainer or MCP author workflow they improve, not only the end-state feature.
+- If you propose a new wrapper or transport, include the smallest config or protocol example that shows the gap.
 
 ## Adding a New Command
 

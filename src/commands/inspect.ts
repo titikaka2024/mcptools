@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import { spawn } from "node:child_process";
 import chalk from "chalk";
+import { MCP_PROTOCOL_VERSION, PACKAGE_VERSION } from "../version.js";
 
 export const inspectCommand = new Command("inspect")
   .description("Inspect and debug MCP server communication in real-time")
@@ -25,9 +26,9 @@ export const inspectCommand = new Command("inspect")
       id: 1,
       method: "initialize",
       params: {
-        protocolVersion: "2024-11-05",
+        protocolVersion: MCP_PROTOCOL_VERSION,
         capabilities: {},
-        clientInfo: { name: "mcptools-inspector", version: "0.1.0" },
+        clientInfo: { name: "mcptools-inspector", version: PACKAGE_VERSION },
       },
     };
 

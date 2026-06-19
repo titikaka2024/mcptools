@@ -42,5 +42,5 @@ For security issues, maintainers should:
 1. Reproduce with a minimal config.
 2. Add a regression test before or alongside the fix.
 3. Check generated REST and CLI wrapper output for unsafe interpolation.
-4. Run `npm run build`, `npm test`, and `npm audit --omit=dev`.
+4. Reinstall from the lockfile with `npm ci` when needed, then run `npm run check`.
 5. Document any required user action in the release notes.

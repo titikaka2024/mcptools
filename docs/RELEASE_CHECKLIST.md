@@ -6,7 +6,7 @@ Use this checklist before publishing a new mcptools release.
 
 ```bash
 git status --short
-npm install
+npm ci
 npm run check
 ```
 
@@ -30,6 +30,8 @@ For CLI wrappers:
 ## 3. Review User-Facing Docs
 
 - README install commands match `package.json`
+- README badges, npm links, and release notes point at `@titikaka2026/mcptools`
+- GitHub repository links and homepage settings do not point at the old unscoped npm package
 - examples still work with the generated output
 - security guidance links to `SECURITY.md`
 - roadmap reflects shipped work and near-term priorities

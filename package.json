@@ -38,11 +38,12 @@
   ],
   "scripts": {
     "build": "tsc",
-    "check": "npm run build && npm test && npm run audit:runtime",
+    "check": "npm run build && npm test && npm run pack:check && npm run audit:runtime",
     "dev": "tsc --watch",
     "start": "node dist/cli.js",
     "test": "vitest run",
     "test:watch": "vitest",
+    "pack:check": "npm pack --dry-run",
     "audit:runtime": "npm audit --omit=dev",
     "prepublishOnly": "npm run check"
   },

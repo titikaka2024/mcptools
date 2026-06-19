@@ -4,6 +4,10 @@ title: "feature: "
 labels:
   - enhancement
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Check `docs/ROADMAP.md` before proposing a large feature. Requests that include a minimal config, protocol example, or security note for wrappers/transports are easier to review.
   - type: textarea
     id: problem
     attributes:
@@ -16,7 +20,7 @@ body:
     id: proposal
     attributes:
       label: Proposed solution
-      description: Describe the command, template, validation, or wrapper behavior you want.
+      description: Describe the command, template, validation, or wrapper behavior you want. If this affects generated wrappers or transports, note any security or review concerns.
     validations:
       required: true
   - type: dropdown

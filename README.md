@@ -27,7 +27,10 @@ mcptools is an early-stage, actively maintained toolkit for MCP server authors. 
 - reproducible TypeScript builds and Vitest coverage for wrapper generation and validation
 - safe-by-default REST and CLI wrapper generation using `fetch` and `execFile`
 - documented security expectations for generated wrappers in [SECURITY.md](SECURITY.md)
+- package publish consistency checked with `npm pack --dry-run`
+- dependency hygiene tracked with Dependabot for npm and GitHub Actions
 - release hygiene tracked in [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)
+- roadmap and issue triage expectations in [docs/ROADMAP.md](docs/ROADMAP.md)
 
 ## Why mcptools?
 
@@ -65,6 +68,19 @@ Or use with npx:
 ```bash
 npx @titikaka2026/mcptools create my-server
 ```
+
+## Local verification
+
+Use this flow before opening a pull request or publishing a release:
+
+```bash
+npm ci
+npm run check
+```
+
+`npm run check` is the maintainer baseline for this repo. It runs the TypeScript build, Vitest suite, `npm pack --dry-run`, and a runtime dependency audit in one reproducible pass.
+
+If your change touches wrapper generation, also review the generated output against the guidance in [SECURITY.md](SECURITY.md) before shipping it.
 
 ## Commands
 
@@ -172,6 +188,8 @@ Turn any CLI tool into an MCP server.
 ```bash
 mcptools wrap cli --config cli.json --output ./generated
 ```
+
+Pass argument names without leading dashes in the config. `mcptools` adds `--` when it generates the wrapped CLI invocation.
 
 **Config format (`cli.json`):**
 ```json
@@ -317,14 +335,19 @@ See [SECURITY.md](SECURITY.md) for the maintainer policy, reporting process, and
 
 ## Roadmap
 
-- [x] CI for build and test on Node 20
+The short version:
+
+- [x] CI for build and test on Node 20 and 22
 - [x] Security guidance for REST and CLI wrappers
+- [x] Release and package consistency checks
 - [ ] SSE transport support
 - [ ] OpenAPI → MCP auto-conversion (import Swagger/OpenAPI specs directly)
 - [ ] MCP server registry (discover and install community servers)
 - [ ] Visual inspector (web-based MCP debugger UI)
 - [ ] `mcptools bench` — performance benchmarking for MCP servers
 - [ ] Plugin system for custom templates
+
+See [docs/ROADMAP.md](docs/ROADMAP.md) for current priorities, how open issues map to the roadmap, and how maintainers triage new reports.
 
 ## Contributing
 
