@@ -11,6 +11,7 @@ All notable changes to this project are documented here.
 - Aligned the security-maintainer response checklist with the repo's `npm run check` release gate.
 - Added a docs/metadata regression test so scoped package install instructions and repository links stay aligned.
 - Refreshed the roadmap issue mapping after rechecking the public backlog.
+- Added a roadmap freshness check to keep public issue mapping visibly current.
 
 ## 0.1.1 - 2026-06-04
 

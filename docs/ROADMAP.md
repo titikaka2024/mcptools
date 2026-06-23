@@ -2,6 +2,8 @@
 
 This document keeps the public backlog aligned with what maintainers are actively willing to review, build, and ship.
 
+Last checked: 2026-06-22 against the public GitHub issue list.
+
 ## Current focus
 
 Near-term work stays biased toward reliability and trust:
@@ -12,14 +14,14 @@ Near-term work stays biased toward reliability and trust:
 
 ## Open issue mapping
 
-As of 2026-06-19, the open public issues still map to the roadmap like this:
+The open public issues currently map to the roadmap like this:
 
 - `#1` SSE transport support: valid next-step feature, but only after stdio tooling stays stable
 - `#2` OpenAPI/Swagger to MCP auto-conversion: high-value wrapper expansion, depends on keeping generated output reviewable and secure
 - `#3` Visual web-based inspector: useful, but lower priority than protocol coverage and wrapper correctness
 - `#4` MCP server registry: ecosystem-scale feature, intentionally deferred until the core CLI is more mature
 
-No open issue changed priority during the 2026-06-19 maintenance pass.
+No open issue changed priority during the latest maintenance pass.
 
 ## Triage rules
 
