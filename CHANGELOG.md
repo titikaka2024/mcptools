@@ -12,6 +12,7 @@ All notable changes to this project are documented here.
 - Added a docs/metadata regression test so scoped package install instructions and repository links stay aligned.
 - Refreshed the roadmap issue mapping after rechecking the public backlog.
 - Added a roadmap freshness check to keep public issue mapping visibly current.
+- Updated GitHub Actions checkout and Node setup actions to avoid runtime deprecation warnings.
 
 ## 0.1.1 - 2026-06-04
 
